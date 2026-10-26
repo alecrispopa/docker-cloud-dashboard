@@ -1,0 +1,23 @@
+services:
+  web:
+    image: nginx:alpine
+    container_name: portofoliu_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/usr/share/nginx/html:ro
+    depends_on:
+      - database
+
+  database:
+    image: postgres:15-alpine
+    container_name: portofoliu_db
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpassword123
+      POSTGRES_DB: portofoliu_db
+    volumes:
+      - date_postgres:/var/lib/postgresql/data
+
+volumes:
+  date_postgres:
